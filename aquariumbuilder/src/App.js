@@ -3,6 +3,7 @@ import "./App.css";
 import TankSelection from "./components/tanksize";
 import FishSelect from "./components/fishselect";
 import Summary from "./components/summary";
+import Intro from "./components/intro";
 import Papa from "papaparse";
 import * as d3 from "d3";
 import data from "./FishData.csv";
@@ -11,13 +12,34 @@ class App extends Component {
   state = {
     data: [],
     tanks: [
-      { id: 1, tanksize: 10 },
-      { id: 2, tanksize: 20 },
+      {
+        id: 1,
+        tanksize: 10,
+        description: "The minimum tank size for a community tank",
+      },
+      {
+        id: 2,
+        tanksize: 20,
+        description: "Expands the selection of fish you can keep",
+      },
+      {
+        id: 3,
+        tanksize: 29,
+        description: "Provides more height for fish like angelfish",
+      },
+      {
+        id: 4,
+        tanksize: 40,
+        description: "Provides more height for fish like angelfish",
+      },
+      {
+        id: 5,
+        tanksize: 55,
+        description:
+          "Excellent for fishkeepers with some experience as you can stock with a large variety and quantity of fish",
+      },
     ],
-    fishes: [
-      { id: 1, name: "betta" },
-      { id: 2, name: "neon tetra" },
-    ],
+    fishes: [],
     selectedFish: {},
     selectedTank: -1,
     minTemp: 0,
@@ -59,7 +81,6 @@ class App extends Component {
         Object.keys(fishSelect).includes(x.name)
       ),
     ];
-    console.log(chosenFish);
     let minTemp = 0;
     let maxPh = 0;
     let maxTemp = 100;
@@ -79,7 +100,6 @@ class App extends Component {
         maxPh = parseInt(currentFish.HighPH);
       }
     });
-    console.log(maxTemp);
     this.setState({
       minTemp: minTemp,
       maxTemp: maxTemp,
@@ -107,12 +127,14 @@ class App extends Component {
         LowPH,
         HighPH,
         MinAquarium,
+        Concerns,
       }) => ({
         LowTemp,
         HighTemp,
         LowPH,
         HighPH,
         MinAquarium,
+        Concerns,
       }))(currentFish);
       fishProps["quantity"] = num;
 
@@ -188,6 +210,7 @@ class App extends Component {
     } = this.state;
     return (
       <React.Fragment>
+        <Intro />
         <TankSelection
           tanks={tanks}
           toggleTank={this.toggleTank}

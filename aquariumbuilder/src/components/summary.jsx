@@ -69,6 +69,7 @@ const ErrorIcon = (errors) => {
         height="1em"
         viewBox="0 0 16 16"
         fill="currentColor"
+        style={{ "margin-left": "7px" }}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -80,19 +81,10 @@ const ErrorIcon = (errors) => {
     </OverlayTrigger>
   );
 };
-const Summary = ({
-  tank,
-  fishes,
-  selectedFish,
-  errors,
-  minTemp,
-  maxTemp,
-  minPh,
-  maxPh,
-}) => {
+const Summary = ({ tank, selectedFish, minTemp, maxTemp, minPh, maxPh }) => {
   return (
     <div>
-      <h2>Summary</h2>
+      <h1>Summary</h1>
       <span>
         {tank == -1
           ? "No Tank Size Selected"
@@ -104,16 +96,23 @@ const Summary = ({
       <p>
         The PH should be between {minPh} and {maxPh}
       </p>
-      <h1>Selected Fish:</h1>
       <ul>
+        {Object.keys(selectedFish).map((fish) => (
+          <li>
+            {fish}: {selectedFish[fish]["Concerns"]}
+          </li>
+        ))}
+      </ul>
+      <h2>Selected Fish:</h2>
+      <ul style={{ "list-style-type": "none" }}>
         {Object.keys(selectedFish).map((fish) => (
           <div key={fish}>
             <li>
               {fish}: {selectedFish[fish]["quantity"]}
+              {Object.keys(selectedFish[fish]["errors"]).length > 0
+                ? ErrorIcon(selectedFish[fish]["errors"])
+                : ""}
             </li>
-            {Object.keys(selectedFish[fish]["errors"]).length > 0
-              ? ErrorIcon(selectedFish[fish]["errors"])
-              : ""}
           </div>
         ))}
       </ul>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
-
 class FishSelect extends Component {
   state = {};
 
@@ -8,23 +7,25 @@ class FishSelect extends Component {
     const { fishes, changeFish } = this.props;
 
     return (
-      <div>
+      <div className="selection">
         <h4>Choose Fish</h4>
-        {fishes.map((fish) => (
-          <Fish key={fish.id} fish={fish} changeFish={changeFish} />
-        ))}
+        <div className="section">
+          {fishes.map((fish) => (
+            <Fish key={fish.id} fish={fish} changeFish={changeFish} />
+          ))}
+        </div>
       </div>
     );
   }
 }
 
 function Fish({ fish, changeFish }) {
-  const [inputVal, setInputVal] = React.useState("");
+  const [inputVal, setInputVal] = React.useState(0);
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const resetFish = (fishId) => {
     changeFish(fishId, 0);
-    setInputVal("");
+    setInputVal(0);
   };
   const modifyInput = (val) => {
     if (val >= 0) {
@@ -43,10 +44,25 @@ function Fish({ fish, changeFish }) {
           <Modal.Title>{fish.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
+          <p className="lead">
             <strong>Name: </strong> {fish.name}
           </p>
-          <p>
+          <p className="lead">
+            <strong>Temperature Range: </strong> {fish.LowTemp}-{fish.HighTemp}
+            °F
+          </p>
+          <p className="lead">
+            <strong>PH Range: </strong> {fish.LowPH}-{fish.HighPH}
+          </p>
+          <p className="lead">
+            <strong>Temperament: </strong>
+            {fish.Temperament}
+          </p>
+          <p className="lead">
+            <strong>Minimum Aquarium Size: </strong>
+            {fish.MinAquarium} Gallons
+          </p>
+          <p className="lead">
             <strong>Description: </strong>
             {fish.Description}
           </p>
@@ -56,29 +72,59 @@ function Fish({ fish, changeFish }) {
     );
   };
   return (
-    <div>
+    <div className="fishInfo">
       <div style={{ position: "relative" }}>
         <img
-          src="https://picsum.photos/50"
+          /* src={beet} */
+          /* src={"../images/" + fish.id + ".jpg"} */
+          src="https://picsum.photos/200/150"
           data-container="body"
           onClick={() => setModalOpen(true)}
+          className="fishImg"
         />
       </div>
       {fishModal(fish)}
-      <span>{fish.name}</span>
-      <img
-        src="https://picsum.photos/25"
-        onClick={() => resetFish(fish.name)}
-      />
-      <input
-        className="fishQuantity"
-        value={inputVal}
-        type="number"
-        onChange={(e) => {
-          changeFish(fish.name, e.target.value);
-          modifyInput(e.target.value);
-        }}
-      />
+      <p>{fish.name}</p>
+      <div className="input-group fishQuantityCont">
+        <span className="input-group-btn">
+          <button
+            type="button"
+            className="quantity-left-minus btn btn-danger btn-number"
+            data-type="minus"
+            data-field=""
+            onClick={() => {
+              changeFish(fish.name, inputVal - 1);
+              modifyInput(inputVal - 1);
+            }}
+          >
+            <span className="glyphicon glyphicon-minus"></span>
+          </button>
+        </span>
+        <input
+          className="fishQuantity form-control input-number"
+          value={inputVal}
+          type="number"
+          onChange={(e) => {
+            changeFish(fish.name, e.target.value);
+            modifyInput(e.target.value);
+          }}
+        />
+
+        <span className="input-group-btn">
+          <button
+            type="button"
+            className="quantity-right-plus btn btn-success btn-number"
+            data-type="plus"
+            data-field=""
+            onClick={() => {
+              changeFish(fish.name, inputVal + 1);
+              modifyInput(inputVal + 1);
+            }}
+          >
+            <span className="glyphicon glyphicon-plus"></span>
+          </button>
+        </span>
+      </div>
     </div>
   );
 }

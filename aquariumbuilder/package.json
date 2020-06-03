@@ -8,11 +8,16 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "bootstrap-input-spinner": "^1.13.5",
     "d3": "^5.16.0",
+    "link": "^0.1.5",
     "papaparse": "^5.2.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-native": "^0.62.2",
+    "react-native-numeric-input": "^1.8.3",
+    "react-native-vector-icons": "^6.6.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
@@ -35,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3"
   }
 }
