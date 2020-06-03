@@ -1,7 +1,36 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
+import betta from "../images/1.jpg";
+import angelfish from "../images/2.jpg";
+import platy from "../images/3.jpg";
+import guppy from "../images/4.jpg";
+import cardinaltetra from "../images/5.jpg";
+import dwarfgrourami from "../images/6.jpg";
+import bristlenosepleco from "../images/7.jpg";
+import tigerbarb from "../images/8.jpg";
+import pandacory from "../images/9.jpg";
+import harlequinrasbora from "../images/10.jpg";
+import kuhliloach from "../images/11.jpg";
+import rainbowshark from "../images/12.jpg";
+import neontetra from "../images/13.jpg";
 class FishSelect extends Component {
-  state = {};
+  state = {
+    pictures: {
+      "1": betta,
+      "2": angelfish,
+      "3": platy,
+      "4": guppy,
+      "5": cardinaltetra,
+      "6": dwarfgrourami,
+      "7": bristlenosepleco,
+      "8": tigerbarb,
+      "9": pandacory,
+      "10": harlequinrasbora,
+      "11": kuhliloach,
+      "12": rainbowshark,
+      "13": neontetra,
+    },
+  };
 
   render() {
     const { fishes, changeFish } = this.props;
@@ -11,7 +40,12 @@ class FishSelect extends Component {
         <h4>Choose Fish</h4>
         <div className="section">
           {fishes.map((fish) => (
-            <Fish key={fish.id} fish={fish} changeFish={changeFish} />
+            <Fish
+              key={fish.id}
+              fish={fish}
+              changeFish={changeFish}
+              picture={this.state.pictures[fish.id]}
+            />
           ))}
         </div>
       </div>
@@ -19,7 +53,7 @@ class FishSelect extends Component {
   }
 }
 
-function Fish({ fish, changeFish }) {
+function Fish({ fish, changeFish, picture }) {
   const [inputVal, setInputVal] = React.useState(0);
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -44,9 +78,6 @@ function Fish({ fish, changeFish }) {
           <Modal.Title>{fish.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="lead">
-            <strong>Name: </strong> {fish.name}
-          </p>
           <p className="lead">
             <strong>Temperature Range: </strong> {fish.LowTemp}-{fish.HighTemp}
             °F
@@ -75,9 +106,7 @@ function Fish({ fish, changeFish }) {
     <div className="fishInfo">
       <div style={{ position: "relative" }}>
         <img
-          /* src={beet} */
-          /* src={"../images/" + fish.id + ".jpg"} */
-          src="https://picsum.photos/200/150"
+          src={picture}
           data-container="body"
           onClick={() => setModalOpen(true)}
           className="fishImg"

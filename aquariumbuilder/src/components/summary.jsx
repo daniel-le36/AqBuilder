@@ -2,23 +2,8 @@ import React, { Component } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
-const FishList = (fishName, quantity) => {
-  return (
-    <li>
-      {fishName}: {quantity}
-    </li>
-  );
-};
-function renderTooltip(props) {
-  console.log(props);
-  return (
-    <Tooltip id="button-tooltip" {...props}>
-      ffff
-    </Tooltip>
-  );
-}
+
 const ErrorMessages = (errors) => {
-  console.log(errors);
   return (
     <div>
       {errors.hasOwnProperty("tooHot") ? (
@@ -42,7 +27,10 @@ const ErrorMessages = (errors) => {
         ""
       )}
       {errors.hasOwnProperty("tooSmall") ? (
-        <p key="highPh">This fish needs a larger tank</p>
+        <p key="highPh">
+          This fish needs a larger tank that's at least {errors.tooSmall}{" "}
+          gallons
+        </p>
       ) : (
         ""
       )}
@@ -83,28 +71,37 @@ const ErrorIcon = (errors) => {
 };
 const Summary = ({ tank, selectedFish, minTemp, maxTemp, minPh, maxPh }) => {
   return (
-    <div>
+    <div className="summary">
       <h1>Summary</h1>
-      <span>
+      <p>
         {tank == -1
           ? "No Tank Size Selected"
           : "Selected Tank Size: " + tank + " Gallons"}
-      </span>
-      <p>
-        The temperature should be between {minTemp} and {maxTemp}F
       </p>
-      <p>
-        The PH should be between {minPh} and {maxPh}
-      </p>
-      <ul>
+      {minTemp === 0 && maxTemp == 100 ? (
+        ""
+      ) : (
+        <p>
+          The temperature should be between {minTemp} and {maxTemp}F
+        </p>
+      )}
+      {minPh === 10 && maxPh == 0 ? (
+        ""
+      ) : (
+        <p>
+          The PH should be between {minPh} and {maxPh}
+        </p>
+      )}
+
+      {/* <ul>
         {Object.keys(selectedFish).map((fish) => (
           <li>
             {fish}: {selectedFish[fish]["Concerns"]}
           </li>
         ))}
-      </ul>
+      </ul> */}
       <h2>Selected Fish:</h2>
-      <ul style={{ "list-style-type": "none" }}>
+      <ul>
         {Object.keys(selectedFish).map((fish) => (
           <div key={fish}>
             <li>

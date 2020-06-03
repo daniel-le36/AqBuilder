@@ -12,7 +12,7 @@ const Intro = () => {
           margin: "auto",
         }}
       >
-        Aquarium Builder is tool to help you plan out your next aquarium. This
+        Aquarium Builder is a tool to help you plan out your next aquarium. This
         is mostly geared for those that are new to fishkeeping or only have a
         bit of experience. There are many other aspects that will be glossed but
         over this should be a suitable introduction and general guideline of how
